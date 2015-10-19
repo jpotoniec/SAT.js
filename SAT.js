@@ -183,8 +183,11 @@ function satSolve(size, clauses)
         var literal = satSelectLiteral(state);
         if (literal == 0)
         {
+		result = [null]
+		for(var v=1; v<state.vars.length;++v)
+			result.push(!state.vars[v].sign);
             // All variables are now set; and no conflicts; therefore SAT
-            return true;
+            return result;
         }
         if (!satUnitPropagate(state, literal, null))
         {
